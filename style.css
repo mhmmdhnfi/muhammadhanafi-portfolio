@@ -356,7 +356,7 @@ body{
    
     background:transparent;
 
-    mix-blend-mode:multiply;
+    mix-blend-mode:lighten;
 }
 
 /* ==================================
