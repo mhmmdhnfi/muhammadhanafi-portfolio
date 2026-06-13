@@ -310,6 +310,8 @@ body{
     align-items:center;
 
     position:relative;
+    
+    background:transparent;
 }
 
 .image-background{
