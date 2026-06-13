@@ -1,137 +1,150 @@
-/* ==============================
-   TYPING ANIMATION
-============================== */
+// ================================
+// TYPING EFFECT
+// ================================
 
-const typingTexts = [
+const texts = [
     "Instrumentation Engineer",
     "Automation Engineer",
     "PLC Programmer",
-    "IoT Developer",
     "SCADA Engineer",
+    "IoT Developer",
     "Control System Engineer"
 ];
 
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
+let count = 0;
+let index = 0;
+let currentText = "";
+let letter = "";
 
-const typingElement = document.getElementById("typing-text");
+(function type() {
 
-function typeEffect() {
+    if (!document.getElementById("typing-text")) return;
 
-    if (!typingElement) return;
+    if (count === texts.length) {
+        count = 0;
+    }
 
-    const currentText = typingTexts[textIndex];
+    currentText = texts[count];
 
-    if (!isDeleting) {
+    letter = currentText.slice(0, ++index);
 
-        typingElement.textContent =
-            currentText.substring(0, charIndex + 1);
+    document.getElementById("typing-text").textContent = letter;
 
-        charIndex++;
+    if (letter.length === currentText.length) {
 
-        if (charIndex === currentText.length) {
+        setTimeout(() => {
 
-            isDeleting = true;
+            const erase = setInterval(() => {
 
-            setTimeout(typeEffect, 1500);
+                letter = letter.slice(0, -1);
 
-            return;
-        }
+                document.getElementById("typing-text").textContent = letter;
+
+                if (letter.length === 0) {
+
+                    clearInterval(erase);
+
+                    count++;
+                    index = 0;
+
+                    setTimeout(type, 300);
+
+                }
+
+            }, 50);
+
+        }, 1500);
 
     } else {
 
-        typingElement.textContent =
-            currentText.substring(0, charIndex - 1);
+        setTimeout(type, 100);
 
-        charIndex--;
-
-        if (charIndex === 0) {
-
-            isDeleting = false;
-
-            textIndex++;
-
-            if (textIndex >= typingTexts.length) {
-                textIndex = 0;
-            }
-        }
     }
 
-    setTimeout(
-        typeEffect,
-        isDeleting ? 50 : 100
-    );
-}
+})();
 
-typeEffect();
 
-/* ==============================
-   SCROLL TO TOP BUTTON
-============================== */
+// ================================
+// MOBILE MENU
+// ================================
 
-const scrollBtn =
-document.getElementById("scrollTopBtn");
+const menuBtn =
+document.querySelector(".menu-btn");
 
-window.addEventListener("scroll", () => {
+const navLinks =
+document.querySelector(".nav-links");
 
-    if (!scrollBtn) return;
+if(menuBtn){
 
-    if (window.scrollY > 400) {
+    menuBtn.addEventListener("click", () => {
 
-        scrollBtn.style.display = "block";
-
-    } else {
-
-        scrollBtn.style.display = "none";
-    }
-
-});
-
-if (scrollBtn) {
-
-    scrollBtn.addEventListener("click", () => {
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+        navLinks.classList.toggle("mobile-active");
 
     });
 
 }
 
-/* ==============================
-   NAVBAR SHADOW
-============================== */
 
-const navbar =
-document.querySelector(".navbar");
+// ================================
+// CLOSE MOBILE MENU
+// ================================
 
-window.addEventListener("scroll", () => {
+document
+.querySelectorAll(".nav-links a")
+.forEach(link => {
 
-    if (!navbar) return;
+    link.addEventListener("click", () => {
 
-    if (window.scrollY > 50) {
+        navLinks.classList.remove("mobile-active");
 
-        navbar.style.boxShadow =
-        "0 10px 30px rgba(0,0,0,.08)";
-
-    } else {
-
-        navbar.style.boxShadow = "none";
-    }
+    });
 
 });
 
-/* ==============================
-   ACTIVE NAVIGATION
-============================== */
+
+// ================================
+// SMOOTH SCROLL
+// ================================
+
+document
+.querySelectorAll('a[href^="#"]')
+.forEach(anchor => {
+
+    anchor.addEventListener(
+        "click",
+        function(e){
+
+            e.preventDefault();
+
+            const target =
+            document.querySelector(
+                this.getAttribute("href")
+            );
+
+            if(target){
+
+                target.scrollIntoView({
+
+                    behavior:"smooth"
+
+                });
+
+            }
+
+        }
+    );
+
+});
+
+
+// ================================
+// ACTIVE NAVBAR
+// ================================
 
 const sections =
 document.querySelectorAll("section");
 
-const navLinks =
+const navItems =
 document.querySelectorAll(".nav-links a");
 
 window.addEventListener("scroll", () => {
@@ -144,12 +157,15 @@ window.addEventListener("scroll", () => {
         section.offsetTop - 150;
 
         const sectionHeight =
-        section.clientHeight;
+        section.offsetHeight;
 
-        if (
-            window.pageYOffset >= sectionTop &&
-            window.pageYOffset < sectionTop + sectionHeight
-        ) {
+        if(
+
+            window.scrollY >= sectionTop &&
+            window.scrollY <
+            sectionTop + sectionHeight
+
+        ){
 
             current =
             section.getAttribute("id");
@@ -158,15 +174,17 @@ window.addEventListener("scroll", () => {
 
     });
 
-    navLinks.forEach(link => {
+    navItems.forEach(link => {
 
         link.classList.remove("active");
 
-        if (
+        if(
+
             link.getAttribute("href")
             ===
             "#" + current
-        ) {
+
+        ){
 
             link.classList.add("active");
 
@@ -176,109 +194,64 @@ window.addEventListener("scroll", () => {
 
 });
 
-/* ==============================
-   MOBILE MENU
-============================== */
 
-const menuBtn =
-document.querySelector(".menu-btn");
+// ================================
+// NAVBAR SHADOW
+// ================================
 
-const navMenu =
-document.querySelector(".nav-links");
+const navbar =
+document.querySelector(".navbar");
 
-if (menuBtn) {
+window.addEventListener("scroll", () => {
 
-    menuBtn.addEventListener("click", () => {
+    if(!navbar) return;
 
-        navMenu.classList.toggle(
-            "mobile-active"
-        );
+    if(window.scrollY > 50){
 
-    });
+        navbar.style.boxShadow =
+        "0 10px 30px rgba(0,0,0,.08)";
 
-}
+    }
 
-/* ==============================
-   CLOSE MOBILE MENU
-============================== */
+    else{
 
-document
-.querySelectorAll(".nav-links a")
-.forEach(link => {
+        navbar.style.boxShadow =
+        "none";
 
-    link.addEventListener("click", () => {
-
-        navMenu.classList.remove(
-            "mobile-active"
-        );
-
-    });
+    }
 
 });
 
-/* ==============================
-   SMOOTH SCROLL
-============================== */
 
-document
-.querySelectorAll('a[href^="#"]')
-.forEach(anchor => {
+// ================================
+// REVEAL ANIMATION
+// ================================
 
-    anchor.addEventListener(
-        "click",
-        function (e) {
-
-            e.preventDefault();
-
-            const target =
-            document.querySelector(
-                this.getAttribute("href")
-            );
-
-            if (target) {
-
-                target.scrollIntoView({
-
-                    behavior: "smooth"
-
-                });
-
-            }
-
-        }
-    );
-
-});
-
-/* ==============================
-   REVEAL ANIMATION
-============================== */
-
-const revealElements =
+const reveals =
 document.querySelectorAll(
     ".section, .project-card, .timeline-item"
 );
 
-function revealOnScroll() {
+function reveal(){
 
-    revealElements.forEach(element => {
+    reveals.forEach(item => {
 
         const windowHeight =
         window.innerHeight;
 
-        const elementTop =
-        element
-        .getBoundingClientRect()
-        .top;
+        const revealTop =
+        item.getBoundingClientRect().top;
 
         const revealPoint = 120;
 
-        if (
-            elementTop <
-            windowHeight - revealPoint
-        ) {
+        if(
 
-            element.classList.add(
+            revealTop <
+            windowHeight - revealPoint
+
+        ){
+
+            item.classList.add(
                 "active-reveal"
             );
 
@@ -290,66 +263,60 @@ function revealOnScroll() {
 
 window.addEventListener(
     "scroll",
-    revealOnScroll
+    reveal
 );
 
-revealOnScroll();
+reveal();
 
-/* ==============================
-   COUNTER ANIMATION
-============================== */
+
+// ================================
+// COUNTER ANIMATION
+// ================================
 
 const counters =
 document.querySelectorAll(
     ".stat-card h3"
 );
 
-let counterStarted = false;
+let started = false;
 
-function animateCounter() {
+function startCounter(){
 
-    if (counterStarted) return;
+    if(started) return;
 
-    const statsSection =
+    const stats =
     document.querySelector(
         ".stats-grid"
     );
 
-    if (!statsSection) return;
+    if(!stats) return;
 
-    const position =
-    statsSection
-    .getBoundingClientRect()
-    .top;
+    const top =
+    stats.getBoundingClientRect().top;
 
-    if (
-        position <
-        window.innerHeight - 100
-    ) {
+    if(top < window.innerHeight){
 
-        counterStarted = true;
+        started = true;
 
         counters.forEach(counter => {
 
             const target =
-            parseFloat(
+            parseInt(
                 counter.innerText
             );
 
-            if (isNaN(target)) return;
+            if(isNaN(target)) return;
 
             let current = 0;
 
-            const increment =
-            target / 50;
+            const speed =
+            target / 60;
 
-            function update() {
+            function update(){
 
-                current += increment;
+                current += speed;
 
-                if (
-                    current < target
-                ) {
+                if(current < target){
 
                     counter.innerText =
                     Math.floor(current);
@@ -358,7 +325,9 @@ function animateCounter() {
                         update
                     );
 
-                } else {
+                }
+
+                else{
 
                     counter.innerText =
                     target;
@@ -377,45 +346,64 @@ function animateCounter() {
 
 window.addEventListener(
     "scroll",
-    animateCounter
+    startCounter
 );
 
-/* ==============================
-   PROJECT CARD EFFECT
-============================== */
 
-const cards =
-document.querySelectorAll(
-    ".project-card"
+// ================================
+// SCROLL TOP BUTTON
+// ================================
+
+const topBtn =
+document.getElementById(
+    "scrollTopBtn"
 );
 
-cards.forEach(card => {
+window.addEventListener(
+    "scroll",
+    () => {
 
-    card.addEventListener(
-        "mouseenter",
+        if(!topBtn) return;
+
+        if(window.scrollY > 400){
+
+            topBtn.style.display =
+            "block";
+
+        }
+
+        else{
+
+            topBtn.style.display =
+            "none";
+
+        }
+
+    }
+);
+
+if(topBtn){
+
+    topBtn.addEventListener(
+        "click",
         () => {
 
-            card.style.transform =
-            "translateY(-10px)";
+            window.scrollTo({
+
+                top:0,
+                behavior:"smooth"
+
+            });
 
         }
     );
 
-    card.addEventListener(
-        "mouseleave",
-        () => {
+}
 
-            card.style.transform =
-            "translateY(0)";
 
-        }
-    );
-
-});
-
-/* ==============================
-   HERO IMAGE PARALLAX
-============================== */
+// ================================
+// HERO IMAGE PARALLAX
+// ================================
 
 const heroImage =
 document.querySelector(
@@ -424,69 +412,83 @@ document.querySelector(
 
 window.addEventListener(
     "mousemove",
-    (e) => {
+    (e)=>{
 
-        if (!heroImage) return;
+        if(!heroImage) return;
 
         const x =
-        (window.innerWidth / 2 - e.pageX) / 40;
+        (window.innerWidth / 2
+        - e.clientX) / 40;
 
         const y =
-        (window.innerHeight / 2 - e.pageY) / 40;
+        (window.innerHeight / 2
+        - e.clientY) / 40;
 
         heroImage.style.transform =
-        `translate(${x}px, ${y}px)`;
+        `translate(${x}px,${y}px)`;
 
     }
 );
 
-/* ==============================
-   FLOATING ICON EFFECT
-============================== */
 
-const floatingIcons =
+// ================================
+// FLOATING ICONS
+// ================================
+
+const icons =
 document.querySelectorAll(
     ".floating-icon"
 );
 
 window.addEventListener(
     "mousemove",
-    (e) => {
+    (e)=>{
 
-        floatingIcons.forEach(
-            (icon, index) => {
+        icons.forEach((icon,index)=>{
 
-                const speed =
-                (index + 1) * 0.5;
+            const speed =
+            (index + 1) * 0.4;
 
-                const x =
-                (window.innerWidth / 2 - e.pageX)
-                * speed / 100;
+            const x =
+            (window.innerWidth/2
+            - e.clientX)
+            *
+            speed
+            /
+            100;
 
-                const y =
-                (window.innerHeight / 2 - e.pageY)
-                * speed / 100;
+            const y =
+            (window.innerHeight/2
+            - e.clientY)
+            *
+            speed
+            /
+            100;
 
-                icon.style.transform =
-                `translate(${x}px, ${y}px)`;
+            icon.style.transform =
+            `translate(${x}px,${y}px)`;
 
-            }
-        );
+        });
 
     }
 );
 
-/* ==============================
-   PAGE FADE IN
-============================== */
 
-window.addEventListener("load", () => {
-
-    document.body.style.opacity = "1";
-
-});
+// ================================
+// PAGE LOAD ANIMATION
+// ================================
 
 document.body.style.opacity = "0";
 
-document.body.style.transition =
-"opacity .8s ease";
+window.addEventListener(
+    "load",
+    ()=>{
+
+        document.body.style.transition =
+        "opacity .8s ease";
+
+        document.body.style.opacity =
+        "1";
+
+    }
+);
