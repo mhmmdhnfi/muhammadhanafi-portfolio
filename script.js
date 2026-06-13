@@ -2,7 +2,7 @@
 
 
 // ================================
-// TYPING EFFECT (UNCHANGED - STABLE)
+// TYPE EFFECT (STABLE)
 // ================================
 
 const texts = [
@@ -16,34 +16,36 @@ const texts = [
 
 let i = 0;
 let j = 0;
-let isDeleting = false;
+let deleting = false;
 
 function typeEffect() {
+
     const el = document.getElementById("typing-text");
     if (!el) return;
 
     const current = texts[i];
 
-    if (!isDeleting) {
+    if (!deleting) {
         el.textContent = current.substring(0, j + 1);
         j++;
 
         if (j === current.length) {
-            isDeleting = true;
+            deleting = true;
             setTimeout(typeEffect, 1200);
             return;
         }
+
     } else {
         el.textContent = current.substring(0, j - 1);
         j--;
 
         if (j === 0) {
-            isDeleting = false;
+            deleting = false;
             i = (i + 1) % texts.length;
         }
     }
 
-    setTimeout(typeEffect, isDeleting ? 35 : 70);
+    setTimeout(typeEffect, deleting ? 40 : 80);
 }
 
 typeEffect();
@@ -90,43 +92,37 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
 
 // ================================
-// CINEMATIC SCROLL ENGINE (NEW)
+// CINEMATIC REVEAL ENGINE V2
 // ================================
 
 const revealItems = document.querySelectorAll(
     ".section, .project-card, .timeline-item, .cert-card, .stat-card"
 );
 
-function cinematicReveal() {
+function reveal() {
 
     const trigger = window.innerHeight * 0.85;
 
-    revealItems.forEach((el, index) => {
+    revealItems.forEach((el) => {
 
         const rect = el.getBoundingClientRect();
 
         if (rect.top < trigger) {
-
-            if (!el.classList.contains("active")) {
-
-                setTimeout(() => {
-                    el.classList.add("cinematic-reveal", "active");
-                }, index * 60);
-
-            }
+            el.classList.add("active");
         }
+
     });
 }
 
 
 // ================================
-// ACTIVE NAV + UI UPDATES
+// NAV + UI UPDATE
 // ================================
 
 const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-links a");
 
-function updateNav() {
+function navUpdate() {
 
     let current = "";
 
@@ -162,12 +158,12 @@ function updateNav() {
 
 
 // ================================
-// COUNTER (SAFE ONE-TIME)
+// COUNTER
 // ================================
 
 let counterStarted = false;
 
-function startCounter() {
+function counter() {
 
     if (counterStarted) return;
 
@@ -206,15 +202,15 @@ function startCounter() {
 
 
 // ================================
-// SCROLL ENGINE (OPTIMIZED RAF)
+// SCROLL ENGINE (ONE LOOP)
 // ================================
 
 let ticking = false;
 
 function onScroll() {
-    cinematicReveal();
-    updateNav();
-    startCounter();
+    reveal();
+    navUpdate();
+    counter();
     ticking = false;
 }
 
@@ -227,65 +223,58 @@ window.addEventListener("scroll", () => {
 
 
 // ================================
-// SCROLL TO TOP
+// PARALLAX V2 (SMOOTH)
+// ================================
+
+const heroImage = document.querySelector(".hero-image img");
+const icons = document.querySelectorAll(".floating-icon");
+
+let mx = 0, my = 0;
+let cx = 0, cy = 0;
+
+document.addEventListener("mousemove", (e) => {
+    mx = (window.innerWidth / 2 - e.clientX) * 0.02;
+    my = (window.innerHeight / 2 - e.clientY) * 0.02;
+});
+
+function parallax() {
+
+    cx += (mx - cx) * 0.08;
+    cy += (my - cy) * 0.08;
+
+    if (heroImage) {
+        heroImage.style.transform = `translate(${cx}px, ${cy}px)`;
+    }
+
+    icons.forEach((icon, i) => {
+        const speed = (i + 1) * 0.5;
+        icon.style.transform = `translate(${cx * speed}px, ${cy * speed}px)`;
+    });
+
+    requestAnimationFrame(parallax);
+}
+
+parallax();
+
+
+// ================================
+// SCROLL TOP
 // ================================
 
 const topBtn = document.getElementById("scrollTopBtn");
 
 if (topBtn) {
     topBtn.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
     });
 }
 
 
 // ================================
-// HERO PARALLAX (SMOOTH RAF VERSION)
-// ================================
-
-const heroImage = document.querySelector(".hero-image img");
-const icons = document.querySelectorAll(".floating-icon");
-
-let mouseX = 0;
-let mouseY = 0;
-let currentX = 0;
-let currentY = 0;
-
-document.addEventListener("mousemove", (e) => {
-    mouseX = (window.innerWidth / 2 - e.clientX) * 0.02;
-    mouseY = (window.innerHeight / 2 - e.clientY) * 0.02;
-});
-
-function animateParallax() {
-
-    currentX += (mouseX - currentX) * 0.08;
-    currentY += (mouseY - currentY) * 0.08;
-
-    if (heroImage) {
-        heroImage.style.transform =
-            `translate(${currentX}px, ${currentY}px)`;
-    }
-
-    icons.forEach((icon, i) => {
-        const speed = (i + 1) * 0.5;
-        icon.style.transform =
-            `translate(${currentX * speed}px, ${currentY * speed}px)`;
-    });
-
-    requestAnimationFrame(animateParallax);
-}
-
-animateParallax();
-
-
-// ================================
-// PAGE LOAD
+// LOAD
 // ================================
 
 window.addEventListener("load", () => {
     document.body.style.opacity = "1";
-    cinematicReveal();
+    reveal();
 });
