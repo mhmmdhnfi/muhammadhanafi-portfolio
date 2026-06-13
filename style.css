@@ -316,9 +316,9 @@ body{
 
 .image-background{
 
-    width:450px;
+    width:420px;
 
-    height:450px;
+    height:420px;
 
     border-radius:50%;
 
@@ -331,33 +331,23 @@ body{
     #2563eb
     );
 
-    opacity:.15;
+    opacity:1;
 
-    filter:blur(20px);
+    bottom:0;
 
-    display:none;
+    z-index:1;
 }
 
 .hero-image img{
 
-    width:480px;
-
-    height:600px;
-
-    object-fit:cover;
-
-    object-position:center top;
+    width:400px;
 
     position:relative;
 
     z-index:5;
 
-    border-radius:20px;
-
     animation:
     floating 4s ease-in-out infinite;
-   
-    mix-blend-mode:multiply;
 }
 
 /* ==================================
