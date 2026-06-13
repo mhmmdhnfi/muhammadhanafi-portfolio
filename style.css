@@ -340,16 +340,21 @@ body{
 
 .hero-image img{
 
-    width:430px;
+    width:380px;
+
+    height:380px;
+
+    object-fit:cover;
+
+    object-position:center top;
+
+    border-radius:50%;
+
+    border:5px solid #0ea5e9;
 
     position:relative;
 
     z-index:5;
-
-    filter:
-    drop-shadow(
-    0 25px 30px rgba(0,0,0,.15)
-    );
 
     animation:
     floating 4s ease-in-out infinite;
