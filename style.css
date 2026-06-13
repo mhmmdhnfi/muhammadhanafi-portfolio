@@ -334,6 +334,8 @@ body{
     opacity:.15;
 
     filter:blur(20px);
+
+    display:none;
 }
 
 .hero-image img{
