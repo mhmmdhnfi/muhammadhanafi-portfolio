@@ -2,7 +2,7 @@
 
 
 // ================================
-// TYPING EFFECT (SMOOTH VERSION)
+// TYPING EFFECT (UNCHANGED - STABLE)
 // ================================
 
 const texts = [
@@ -30,7 +30,7 @@ function typeEffect() {
 
         if (j === current.length) {
             isDeleting = true;
-            setTimeout(typeEffect, 1400);
+            setTimeout(typeEffect, 1200);
             return;
         }
     } else {
@@ -43,7 +43,7 @@ function typeEffect() {
         }
     }
 
-    setTimeout(typeEffect, isDeleting ? 40 : 80);
+    setTimeout(typeEffect, isDeleting ? 35 : 70);
 }
 
 typeEffect();
@@ -70,7 +70,7 @@ if (menuBtn && navLinks) {
 
 
 // ================================
-// SMOOTH SCROLL (ANCHOR NAV)
+// SMOOTH SCROLL
 // ================================
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -90,23 +90,51 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
 
 // ================================
-// ACTIVE NAV + SCROLL EFFECT (OPTIMIZED)
+// CINEMATIC SCROLL ENGINE (NEW)
+// ================================
+
+const revealItems = document.querySelectorAll(
+    ".section, .project-card, .timeline-item, .cert-card, .stat-card"
+);
+
+function cinematicReveal() {
+
+    const trigger = window.innerHeight * 0.85;
+
+    revealItems.forEach((el, index) => {
+
+        const rect = el.getBoundingClientRect();
+
+        if (rect.top < trigger) {
+
+            if (!el.classList.contains("active")) {
+
+                setTimeout(() => {
+                    el.classList.add("cinematic-reveal", "active");
+                }, index * 60);
+
+            }
+        }
+    });
+}
+
+
+// ================================
+// ACTIVE NAV + UI UPDATES
 // ================================
 
 const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-links a");
 
-let ticking = false;
-
-function updateScroll() {
+function updateNav() {
 
     let current = "";
 
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 150;
-        const sectionBottom = sectionTop + section.offsetHeight;
+        const top = section.offsetTop - 120;
+        const bottom = top + section.offsetHeight;
 
-        if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+        if (window.scrollY >= top && window.scrollY < bottom) {
             current = section.id;
         }
     });
@@ -118,7 +146,6 @@ function updateScroll() {
         );
     });
 
-    // NAVBAR SHADOW
     const navbar = document.querySelector(".navbar");
     if (navbar) {
         navbar.style.boxShadow =
@@ -127,43 +154,21 @@ function updateScroll() {
                 : "none";
     }
 
-    // SCROLL TOP BUTTON
     const topBtn = document.getElementById("scrollTopBtn");
     if (topBtn) {
         topBtn.style.display = window.scrollY > 400 ? "block" : "none";
     }
-
-    // REVEAL ANIMATION
-    document.querySelectorAll(".section, .project-card, .timeline-item, .cert-card")
-        .forEach(el => {
-            const rect = el.getBoundingClientRect();
-
-            if (rect.top < window.innerHeight - 120) {
-                el.classList.add("active-reveal");
-            }
-        });
-
-    // COUNTER
-    startCounter();
-
-    ticking = false;
 }
-
-window.addEventListener("scroll", () => {
-    if (!ticking) {
-        requestAnimationFrame(updateScroll);
-        ticking = true;
-    }
-});
 
 
 // ================================
-// COUNTER ANIMATION
+// COUNTER (SAFE ONE-TIME)
 // ================================
 
 let counterStarted = false;
 
 function startCounter() {
+
     if (counterStarted) return;
 
     const stats = document.querySelector(".stats-grid");
@@ -171,12 +176,13 @@ function startCounter() {
 
     const rect = stats.getBoundingClientRect();
 
-    if (rect.top < window.innerHeight) {
+    if (rect.top < window.innerHeight * 0.9) {
+
         counterStarted = true;
 
         document.querySelectorAll(".stat-card h3").forEach(counter => {
-            const target = parseInt(counter.textContent);
 
+            const target = parseInt(counter.textContent);
             if (isNaN(target)) return;
 
             let current = 0;
@@ -200,7 +206,28 @@ function startCounter() {
 
 
 // ================================
-// SCROLL TO TOP BUTTON
+// SCROLL ENGINE (OPTIMIZED RAF)
+// ================================
+
+let ticking = false;
+
+function onScroll() {
+    cinematicReveal();
+    updateNav();
+    startCounter();
+    ticking = false;
+}
+
+window.addEventListener("scroll", () => {
+    if (!ticking) {
+        requestAnimationFrame(onScroll);
+        ticking = true;
+    }
+});
+
+
+// ================================
+// SCROLL TO TOP
 // ================================
 
 const topBtn = document.getElementById("scrollTopBtn");
@@ -216,33 +243,49 @@ if (topBtn) {
 
 
 // ================================
-// HERO PARALLAX EFFECT
+// HERO PARALLAX (SMOOTH RAF VERSION)
 // ================================
 
 const heroImage = document.querySelector(".hero-image img");
 const icons = document.querySelectorAll(".floating-icon");
 
-window.addEventListener("mousemove", (e) => {
+let mouseX = 0;
+let mouseY = 0;
+let currentX = 0;
+let currentY = 0;
 
-    const x = (window.innerWidth / 2 - e.clientX) / 60;
-    const y = (window.innerHeight / 2 - e.clientY) / 60;
+document.addEventListener("mousemove", (e) => {
+    mouseX = (window.innerWidth / 2 - e.clientX) * 0.02;
+    mouseY = (window.innerHeight / 2 - e.clientY) * 0.02;
+});
+
+function animateParallax() {
+
+    currentX += (mouseX - currentX) * 0.08;
+    currentY += (mouseY - currentY) * 0.08;
 
     if (heroImage) {
-        heroImage.style.transform = `translate(${x}px, ${y}px)`;
+        heroImage.style.transform =
+            `translate(${currentX}px, ${currentY}px)`;
     }
 
-    icons.forEach((icon, index) => {
-        const speed = (index + 1) * 0.4;
-        icon.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+    icons.forEach((icon, i) => {
+        const speed = (i + 1) * 0.5;
+        icon.style.transform =
+            `translate(${currentX * speed}px, ${currentY * speed}px)`;
     });
 
-});
+    requestAnimationFrame(animateParallax);
+}
+
+animateParallax();
 
 
 // ================================
-// PAGE LOAD ANIMATION
+// PAGE LOAD
 // ================================
 
 window.addEventListener("load", () => {
     document.body.style.opacity = "1";
+    cinematicReveal();
 });
