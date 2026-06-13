@@ -485,5 +485,46 @@ footer{
         width:280px;
         height:280px;
     }
+}
+/* =======================
+   REVEAL ANIMATION
+======================= */
 
+.section,
+.project-card,
+.timeline-item{
+    opacity:0;
+    transform:translateY(40px);
+    transition:all .8s ease;
+}
+
+.active-reveal{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =======================
+   ACTIVE MENU
+======================= */
+
+.nav-links a.active{
+    color:#0284c7;
+    font-weight:700;
+}
+
+/* =======================
+   MOBILE MENU
+======================= */
+
+.mobile-active{
+    display:flex !important;
+    position:absolute;
+    top:80px;
+    left:0;
+    width:100%;
+    flex-direction:column;
+    background:white;
+    padding:30px;
+    gap:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,.1);
 }
