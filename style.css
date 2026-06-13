@@ -71,7 +71,7 @@ body{
 }
 
 /* =======================
-   HERO
+   HERO SECTION
 ======================= */
 
 .hero{
@@ -81,49 +81,111 @@ body{
     align-items:center;
     padding:120px 8%;
     gap:50px;
+
+    position:relative;
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        135deg,
+        #f8fafc 0%,
+        #e2e8f0 50%,
+        #f8fafc 100%
+    );
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:700px;
+    height:700px;
+
+    background:
+    radial-gradient(
+        rgba(14,165,233,0.15),
+        transparent 70%
+    );
+
+    top:-250px;
+    left:-250px;
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    background:
+    radial-gradient(
+        rgba(37,99,235,0.12),
+        transparent 70%
+    );
+
+    bottom:-200px;
+    right:-200px;
 }
 
 .hero-content{
     flex:1;
+    z-index:2;
 }
 
 .hero-greeting{
-    color:#0284c7;
+    color:#0ea5e9;
     font-size:1.2rem;
-    font-weight:600;
+    font-weight:700;
+    letter-spacing:1px;
 }
 
 .hero h1{
-    font-size:4.5rem;
+    font-size:6rem;
+    line-height:1;
     font-weight:800;
-    margin-top:10px;
+    color:#0f172a;
+
+    margin-top:15px;
+    margin-bottom:20px;
 }
 
 .hero h2{
     color:#475569;
-    margin-top:10px;
-    min-height:50px;
+    font-size:2rem;
+    min-height:60px;
 }
 
 .hero p{
     margin-top:25px;
-    line-height:1.8;
-    color:#64748b;
+
     max-width:650px;
+
+    line-height:1.9;
+
+    color:#64748b;
+
+    font-size:1.1rem;
 }
 
 .hero-buttons{
     margin-top:35px;
+    display:flex;
+    gap:15px;
 }
 
 .btn-primary{
-    display:inline-block;
-    background:#0284c7;
+    background:#0ea5e9;
     color:white;
-    text-decoration:none;
-    padding:14px 30px;
+
+    padding:15px 32px;
+
     border-radius:12px;
-    margin-right:10px;
+
+    text-decoration:none;
+
     transition:.3s;
 }
 
@@ -132,45 +194,23 @@ body{
 }
 
 .btn-secondary{
-    display:inline-block;
-    border:2px solid #0284c7;
-    color:#0284c7;
-    text-decoration:none;
-    padding:14px 30px;
+    border:2px solid #0ea5e9;
+
+    color:#0ea5e9;
+
+    padding:15px 32px;
+
     border-radius:12px;
+
+    text-decoration:none;
+
     transition:.3s;
 }
 
 .btn-secondary:hover{
-    background:#0284c7;
+    background:#0ea5e9;
     color:white;
 }
-
-.hero-image{
-    flex:1;
-    display:flex;
-    justify-content:center;
-    position:relative;
-}
-
-.image-background{
-    width:380px;
-    height:380px;
-    background:#0284c7;
-    border-radius:50%;
-    position:absolute;
-    top:20px;
-    opacity:.15;
-}
-
-.hero-image img{
-    width:350px;
-    border-radius:30px;
-    position:relative;
-    z-index:10;
-    box-shadow:0 20px 40px rgba(0,0,0,.15);
-}
-
 /* =======================
    SECTION
 ======================= */
@@ -476,17 +516,57 @@ footer{
     .stats-grid{
         grid-template-columns:1fr;
     }
+.hero-image{
+    flex:1;
 
-    .hero-image img{
-        width:260px;
-    }
+    display:flex;
 
-    .image-background{
-        width:280px;
-        height:280px;
-    }
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    z-index:2;
 }
-/* =======================
+
+.image-background{
+
+    width:450px;
+    height:450px;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0ea5e9,
+        #2563eb
+    );
+
+    opacity:.15;
+
+    filter:blur(15px);
+}
+
+.hero-image img{
+
+    width:430px;
+
+    position:relative;
+
+    z-index:2;
+
+    filter:
+    drop-shadow(
+        0 25px 35px rgba(0,0,0,.15)
+    );
+
+    animation:
+    floating 4s ease-in-out infinite;
+}/* =======================
    REVEAL ANIMATION
 ======================= */
 
@@ -527,4 +607,20 @@ footer{
     padding:30px;
     gap:20px;
     box-shadow:0 10px 20px rgba(0,0,0,.1);
+}
+
+@keyframes floating{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
 }
