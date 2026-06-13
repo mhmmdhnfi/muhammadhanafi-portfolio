@@ -353,6 +353,10 @@ body{
 
     animation:
     floating 4s ease-in-out infinite;
+   
+    background:transparent;
+
+    mix-blend-mode:multiply;
 }
 
 /* ==================================
