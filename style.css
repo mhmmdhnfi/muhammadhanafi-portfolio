@@ -310,13 +310,15 @@ body{
     align-items:center;
 
     position:relative;
+
+    overflow:hidden;
 }
 
 .image-background{
 
-    width:420px;
+    width:500px;
 
-    height:420px;
+    height:500px;
 
     border-radius:50%;
 
@@ -331,9 +333,14 @@ body{
 
     opacity:1;
 
-    bottom:0;
+    bottom:-30px;
+
+    left:50%;
+
+    transform:translateX(-50%);
 
     z-index:1;
+}
 }
 
 .hero-image img{
