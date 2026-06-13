@@ -356,6 +356,8 @@ body{
 
     animation:
     floating 4s ease-in-out infinite;
+   
+    mix-blend-mode:multiply;
 }
 
 /* ==================================
