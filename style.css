@@ -532,3 +532,34 @@ footer{
         display:none;
     }
 }
+html{
+    scroll-behavior:smooth;
+}
+
+/* smooth motion baseline */
+section, .project-card, .timeline-item, .stat-card, .cert-card{
+    will-change: transform, opacity;
+}
+
+/* cinematic reveal upgrade */
+.cinematic-reveal{
+    opacity:0;
+    transform: translateY(60px) scale(0.98);
+    filter: blur(6px);
+    transition: all 0.9s cubic-bezier(.2,.8,.2,1);
+}
+
+.cinematic-reveal.active{
+    opacity:1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+/* depth layer feel */
+.hero-image img{
+    transition: transform 0.2s ease-out;
+}
+
+.floating-icon{
+    transition: transform 0.2s ease-out;
+}
