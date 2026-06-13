@@ -1,0 +1,10 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#f8fafc;color:#0f172a}
+.navbar{display:flex;justify-content:space-between;padding:20px 8%;position:fixed;width:100%;background:rgba(255,255,255,.85);backdrop-filter:blur(10px)}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{text-decoration:none;color:#0f172a}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:space-between;padding:120px 8%;background:linear-gradient(135deg,#f8fafc,#e2e8f0)}
+.hero h1{font-size:4rem}
+.hero-image img{width:350px}
+.section{padding:100px 8%}
+.project-card{background:white;padding:25px;border-radius:16px;margin:10px 0;box-shadow:0 5px 15px rgba(0,0,0,.08)}
