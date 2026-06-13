@@ -3,247 +3,551 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Muhammad Hanafi | Instrumentation & Control Engineer</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    background:#f5f7fa;
-    color:#333;
+    background:#f8fafc;
+    color:#1e293b;
 }
 
-header{
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
     background:#0f172a;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+}
+
+.logo{
     color:white;
-    text-align:center;
-    padding:60px 20px;
-}
-
-header h1{
-    font-size:3rem;
-}
-
-header p{
-    margin-top:10px;
+    font-weight:700;
     font-size:1.2rem;
 }
 
-.container{
-    width:90%;
-    max-width:1200px;
-    margin:auto;
+nav ul{
+    display:flex;
+    gap:25px;
+    list-style:none;
 }
+
+nav ul a{
+    color:white;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+nav ul a:hover{
+    color:#38bdf8;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:120px 8%;
+}
+
+.hero-content{
+    max-width:700px;
+}
+
+.hero h1{
+    font-size:4rem;
+    margin-bottom:10px;
+}
+
+.hero h2{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+.hero p{
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 30px;
+    background:#38bdf8;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    margin-right:10px;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.btn-outline{
+    border:2px solid #38bdf8;
+    background:transparent;
+}
+
+/* SECTION */
 
 section{
-    padding:50px 0;
+    padding:90px 8%;
 }
 
-h2{
-    color:#0f172a;
-    margin-bottom:20px;
-}
-
-.card{
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
-    margin-bottom:20px;
-}
-
-.skills{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-}
-
-.skill{
-    background:white;
-    padding:15px;
-    border-radius:10px;
+.section-title{
     text-align:center;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom:50px;
 }
 
-.projects{
+.section-title h2{
+    font-size:2.3rem;
+    color:#0f172a;
+}
+
+/* STATS */
+
+.stats{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:20px;
 }
 
-.project{
+.stat-card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.stat-card h3{
+    font-size:2rem;
+    color:#0ea5e9;
+}
+
+/* EXPERIENCE */
+
+.timeline{
+    border-left:4px solid #38bdf8;
+    padding-left:30px;
+}
+
+.timeline-item{
+    margin-bottom:40px;
+}
+
+.timeline-item h3{
+    color:#0f172a;
+}
+
+/* PROJECTS */
+
+.projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:25px;
+}
+
+.project-card{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.project-card:hover{
+    transform:translateY(-8px);
+}
+
+.project-card h3{
+    margin-bottom:10px;
+}
+
+.project-tags{
+    margin-top:15px;
+}
+
+.project-tags span{
+    display:inline-block;
+    background:#e0f2fe;
+    color:#0369a1;
+    padding:6px 12px;
+    border-radius:30px;
+    margin:4px;
+    font-size:12px;
+}
+
+/* SKILLS */
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+}
+
+.skill{
+    background:#0f172a;
+    color:white;
+    padding:12px 20px;
+    border-radius:30px;
+}
+
+/* CERTIFICATE */
+
+.cert-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.cert{
     background:white;
     padding:20px;
-    border-radius:12px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
 }
+
+/* CONTACT */
+
+.contact{
+    text-align:center;
+}
+
+.contact p{
+    margin:10px 0;
+}
+
+/* FOOTER */
 
 footer{
     background:#0f172a;
     color:white;
     text-align:center;
-    padding:20px;
+    padding:30px;
 }
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:2.8rem;
+}
+
+nav ul{
+    display:none;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
-<header>
-    <h1>Muhammad Hanafi</h1>
-    <p>Instrumentation & Control Engineer | Automation | IoT Engineer</p>
-</header>
+<nav>
 
-<section class="container">
-    <h2>About Me</h2>
+<div class="logo">Muhammad Hanafi</div>
 
-    <div class="card">
-        <p>
-            Electrical Engineering graduate from Universitas Muhammadiyah Yogyakarta
-            with interests in Instrumentation and Control, Industrial Automation,
-            Embedded Systems, IoT, and Energy Technology.
-        </p>
-    </div>
+<ul>
+<li><a href="#about">About</a></li>
+<li><a href="#experience">Experience</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
+</nav>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>Muhammad Hanafi</h1>
+
+<h2>Instrumentation & Control Engineer</h2>
+
+<p>
+Electrical Engineering Graduate with interests in
+Instrumentation, Industrial Automation, Process Control,
+PLC Systems, Embedded Systems, IoT, and Energy Technology.
+Experienced through industrial internships at PLN Indonesia Power,
+PPSDM Migas, and Telkom Corpu.
+</p>
+
+<a href="#" class="btn">Download CV</a>
+
+<a href="https://linkedin.com/in/mhmmadhanafi"
+class="btn btn-outline">
+LinkedIn
+</a>
+
+</div>
+
 </section>
 
-<section class="container">
-    <h2>Industrial Experience</h2>
+<section id="about">
 
-    <div class="card">
-        <h3>PT PLN Indonesia Power</h3>
-        <p>HAR Instrumentation & Control</p>
-        <ul>
-            <li>Preventive Maintenance</li>
-            <li>Corrective Maintenance</li>
-            <li>Calibration and Inspection</li>
-            <li>P&ID Interpretation</li>
-        </ul>
-    </div>
+<div class="section-title">
+<h2>Professional Overview</h2>
+</div>
 
-    <div class="card">
-        <h3>PPSDM Migas</h3>
-        <p>Instrumentation and Control Engineer Intern</p>
-        <ul>
-            <li>Industrial Instrument Calibration</li>
-            <li>Allen Bradley PLC</li>
-            <li>PID Control Analysis</li>
-            <li>Control Valve Maintenance</li>
-        </ul>
-    </div>
+<div class="stats">
 
-    <div class="card">
-        <h3>Telkom Corpu</h3>
-        <p>IoT Engineer Intern</p>
-        <ul>
-            <li>Energy Monitoring</li>
-            <li>MQTT Communication</li>
-            <li>IoT Development</li>
-            <li>Relay and Automation Systems</li>
-        </ul>
-    </div>
+<div class="stat-card">
+<h3>3+</h3>
+<p>Industrial Internships</p>
+</div>
+
+<div class="stat-card">
+<h3>5+</h3>
+<p>Engineering Projects</p>
+</div>
+
+<div class="stat-card">
+<h3>100+</h3>
+<p>Students Assisted</p>
+</div>
+
+<div class="stat-card">
+<h3>3.85</h3>
+<p>GPA</p>
+</div>
+
+</div>
+
 </section>
 
-<section class="container">
-    <h2>Projects</h2>
+<section id="experience">
 
-    <div class="projects">
+<div class="section-title">
+<h2>Industrial Experience</h2>
+</div>
 
-        <div class="project">
-            <h3>Hybrid Fuzzy-PID Temperature Chamber</h3>
-            <p>
-                Developed a temperature control chamber using ESP32,
-                Peltier TEC1-12706, DS18B20, MQTT and Node-RED.
-            </p>
-        </div>
+<div class="timeline">
 
-        <div class="project">
-            <h3>PID Temperature Control System</h3>
-            <p>
-                Designed a closed-loop temperature control system
-                with PID tuning and performance evaluation.
-            </p>
-        </div>
+<div class="timeline-item">
+<h3>PLN Indonesia Power</h3>
+<p>HAR Instrumentation & Control</p>
+<p>
+Preventive Maintenance, Corrective Maintenance,
+Calibration, Inspection, P&ID Interpretation.
+</p>
+</div>
 
-        <div class="project">
-            <h3>IoT Home Energy Monitoring</h3>
-            <p>
-                Real-time voltage, current, power, energy,
-                and power factor monitoring using ESP32 and PZEM-004T.
-            </p>
-        </div>
+<div class="timeline-item">
+<h3>PPSDM Migas</h3>
+<p>Instrumentation & Control Engineer Intern</p>
+<p>
+Industrial Instrument Calibration,
+Allen Bradley PLC,
+Control Valve Maintenance,
+PID Control Analysis.
+</p>
+</div>
 
-        <div class="project">
-            <h3>Dual Axis Solar Tracker</h3>
-            <p>
-                Automated solar tracking system using LDR sensors
-                and microcontroller-based control.
-            </p>
-        </div>
+<div class="timeline-item">
+<h3>Telkom Corpu</h3>
+<p>IoT Engineer Intern</p>
+<p>
+MQTT Communication,
+Energy Monitoring,
+Relay Automation,
+IoT Deployment.
+</p>
+</div>
 
-        <div class="project">
-            <h3>PID Line Follower Robot</h3>
-            <p>
-                Autonomous robot using PID algorithm
-                for high-speed and stable line tracking.
-            </p>
-        </div>
+</div>
 
-    </div>
 </section>
 
-<section class="container">
-    <h2>Technical Skills</h2>
+<section id="projects">
 
-    <div class="skills">
+<div class="section-title">
+<h2>Featured Projects</h2>
+</div>
 
-        <div class="skill">PLC</div>
-        <div class="skill">SCADA</div>
-        <div class="skill">PID Control</div>
-        <div class="skill">Fuzzy Logic</div>
-        <div class="skill">Hybrid Fuzzy-PID</div>
-        <div class="skill">ESP32</div>
-        <div class="skill">MQTT</div>
-        <div class="skill">Node-RED</div>
-        <div class="skill">Industrial Instrumentation</div>
-        <div class="skill">Automation</div>
-        <div class="skill">Python</div>
-        <div class="skill">C++</div>
+<div class="projects">
 
-    </div>
+<div class="project-card">
+<h3>Hybrid Fuzzy-PID Temperature Chamber</h3>
+<p>
+Developed temperature control system using ESP32,
+DS18B20, Peltier TEC1-12706 and MQTT-based monitoring.
+</p>
+
+<div class="project-tags">
+<span>ESP32</span>
+<span>Hybrid Fuzzy PID</span>
+<span>MQTT</span>
+<span>Node-RED</span>
+</div>
+</div>
+
+<div class="project-card">
+<h3>PID Temperature Control</h3>
+<p>
+Designed and analyzed closed-loop temperature
+control using PID algorithm.
+</p>
+
+<div class="project-tags">
+<span>PID</span>
+<span>Control System</span>
+<span>DS18B20</span>
+</div>
+</div>
+
+<div class="project-card">
+<h3>IoT Energy Monitoring</h3>
+<p>
+Real-time voltage, current, power,
+and energy monitoring system.
+</p>
+
+<div class="project-tags">
+<span>ESP32</span>
+<span>PZEM004T</span>
+<span>IoT</span>
+</div>
+</div>
+
+<div class="project-card">
+<h3>Dual Axis Solar Tracker</h3>
+<p>
+Automatic solar panel tracking system
+for maximizing solar energy harvesting.
+</p>
+
+<div class="project-tags">
+<span>Solar</span>
+<span>LDR</span>
+<span>Arduino</span>
+</div>
+</div>
+
+<div class="project-card">
+<h3>PID Line Follower Robot</h3>
+<p>
+Autonomous robot using PID control
+for accurate high-speed tracking.
+</p>
+
+<div class="project-tags">
+<span>PID</span>
+<span>Robotics</span>
+<span>Embedded</span>
+</div>
+</div>
+
+</div>
+
 </section>
 
-<section class="container">
-    <h2>Certifications</h2>
+<section id="skills">
 
-    <div class="card">
-        <ul>
-            <li>BNSP Teknisi Senior Otomasi Industri</li>
-            <li>SCADA Automation Electrical Bootcamp</li>
-            <li>PLC 7 in 1 & AVEVA SCADA</li>
-            <li>Instrumentation & Control Oil and Gas</li>
-            <li>Instrumentation & Control Manufacture</li>
-        </ul>
-    </div>
+<div class="section-title">
+<h2>Technical Skills</h2>
+</div>
+
+<div class="skills">
+
+<div class="skill">PLC</div>
+<div class="skill">Allen Bradley</div>
+<div class="skill">Omron PLC</div>
+<div class="skill">SCADA</div>
+<div class="skill">DCS</div>
+<div class="skill">PID Control</div>
+<div class="skill">Fuzzy Logic</div>
+<div class="skill">Instrumentation</div>
+<div class="skill">ESP32</div>
+<div class="skill">MQTT</div>
+<div class="skill">Node-RED</div>
+<div class="skill">Python</div>
+<div class="skill">C++</div>
+
+</div>
+
 </section>
 
-<section class="container">
-    <h2>Contact</h2>
+<section>
 
-    <div class="card">
-        <p>Email: workwithmuhammadhanafi@gmail.com</p>
-        <p>LinkedIn: linkedin.com/in/mhmmadhanafi</p>
-        <p>Phone: 08786806266</p>
-    </div>
+<div class="section-title">
+<h2>Certifications</h2>
+</div>
+
+<div class="cert-grid">
+
+<div class="cert">
+BNSP Teknisi Senior Otomasi Industri
+</div>
+
+<div class="cert">
+SCADA Automation Electrical Bootcamp
+</div>
+
+<div class="cert">
+PLC 7 in 1 & AVEVA SCADA
+</div>
+
+<div class="cert">
+Instrumentation & Control Oil & Gas
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+
+<div class="section-title">
+<h2>Contact</h2>
+</div>
+
+<div class="contact">
+
+<p>📧 workwithmuhammadhanafi@gmail.com</p>
+
+<p>📱 08786806266</p>
+
+<p>🔗 linkedin.com/in/mhmmadhanafi</p>
+
+</div>
+
 </section>
 
 <footer>
-    <p>© 2026 Muhammad Hanafi | Instrumentation & Control Engineer</p>
+
+<p>
+© 2026 Muhammad Hanafi
+Instrumentation & Control Engineer
+</p>
+
 </footer>
 
 </body>
